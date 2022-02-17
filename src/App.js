@@ -9,7 +9,7 @@ function App() {
   const [fourthLetter, setFourthLetter] = useState("?");
   const [fifthLetter, setFifthLetter] = useState("?");
   const [possibleWords, setPossibleWords] = useState([]);
-  const [allLetters, setAllLetters] = useState([
+  const [allLetters] = useState([
     "Q",
     "W",
     "E",
@@ -74,7 +74,6 @@ function App() {
       setFifthLetter("?");
     }
     let wordToSearch = word.join("");
-    console.log(wordToSearch);
     const result = await fetch(
       `https://api.datamuse.com/words?sp=${wordToSearch}`
     );
@@ -97,17 +96,12 @@ function App() {
   };
 
   const excludeLetter = (letter) => {
-    console.log(letter);
     nonexistentLetters.push(letter);
-    console.log(nonexistentLetters);
     filterWords();
   };
   const includeLetter = (letter) => {
-    console.log(letter);
-    let index = nonexistentLetters.findIndex((x) => x == letter);
-    console.log(index);
+    let index = nonexistentLetters.findIndex((x) => x === letter);
     nonexistentLetters.splice(index, 1);
-    console.log(nonexistentLetters);
   };
 
   return (

@@ -17,14 +17,16 @@ p {
 .selected {
   background-color: rgb(49, 49, 49);
 }
-.container:hover {
-  background-color: rgb(175, 175, 175);
-  cursor: pointer;
-}
 @media only screen and (max-width: 600px) {
   .container {
     margin: 0.25rem;
     height: 2.5rem;
     width: 2.5rem;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .container:hover {
+    background-color: rgb(175, 175, 175);
+    cursor: pointer;
   }
 }

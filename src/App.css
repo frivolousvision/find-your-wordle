@@ -38,10 +38,6 @@ button {
   font-weight: bold;
   color: white;
 }
-button:hover {
-  background-color: rgb(175, 175, 175);
-  cursor: pointer;
-}
 .search-button {
   margin-top: 1.2rem;
 }
@@ -86,5 +82,11 @@ button:hover {
   }
   .letter-list {
     width: 90%;
+  }
+}
+@media only screen and (min-width: 600px) {
+  button:hover {
+    background-color: rgb(175, 175, 175);
+    cursor: pointer;
   }
 }
