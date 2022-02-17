@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Letter from "./Components/Letter/Letter";
 import "./App.css";
 
@@ -38,12 +38,18 @@ function App() {
     "N",
     "M",
   ]);
+  const myRef = useRef(null);
 
   let word = ["?", "?", "?", "?", "?"];
-
+  const handleScroll = () => {
+    myRef.current.scrollIntoView({ behavior: "smooth" });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     searchWord();
+    setTimeout(() => {
+      handleScroll();
+    }, 500);
   };
   const searchWord = async () => {
     console.log("search word called");
@@ -199,7 +205,7 @@ function App() {
           />
         ))}
       </div>
-      {possibleWords.length > 0 ? <h1>Possible Wordles:</h1> : null}
+      {possibleWords.length > 0 ? <h1 ref={myRef}>Possible Wordles:</h1> : null}
       <div className='word-list'>
         {possibleWords
           ? possibleWords.map((word, index) => (
