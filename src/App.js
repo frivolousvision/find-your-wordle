@@ -9,7 +9,7 @@ function App() {
   const [fourthLetter, setFourthLetter] = useState("?");
   const [fifthLetter, setFifthLetter] = useState("?");
   const [possibleWords, setPossibleWords] = useState([]);
-  const [nonexistentLetters, setNonexistentLetter] = useState([]);
+  const [nonexistentLetters] = useState([]);
   const [allLetters] = useState([
     "Q",
     "W",
