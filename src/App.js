@@ -9,6 +9,7 @@ function App() {
   const [fourthLetter, setFourthLetter] = useState("?");
   const [fifthLetter, setFifthLetter] = useState("?");
   const [possibleWords, setPossibleWords] = useState([]);
+  const [nonexistentLetters, setNonexistentLetter] = useState([]);
   const [allLetters] = useState([
     "Q",
     "W",
@@ -39,10 +40,13 @@ function App() {
   ]);
 
   let word = ["?", "?", "?", "?", "?"];
-  let nonexistentLetters = [];
 
-  const searchWord = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    searchWord();
+  };
+  const searchWord = async () => {
+    console.log("search word called");
     if (firstLetter.length > 0 && typeof firstLetter === "string") {
       word.splice(0, 1, firstLetter);
     } else {
@@ -79,6 +83,7 @@ function App() {
     );
     const jsonResult = await result.json();
     setPossibleWords(jsonResult);
+
     filterWords();
   };
 
@@ -93,6 +98,7 @@ function App() {
         )
       );
     }
+    console.log(nonexistentLetters);
   };
 
   const excludeLetter = (letter) => {
@@ -102,12 +108,14 @@ function App() {
   const includeLetter = (letter) => {
     let index = nonexistentLetters.findIndex((x) => x === letter);
     nonexistentLetters.splice(index, 1);
+    console.log(index);
+    searchWord();
   };
 
   return (
     <div className='App'>
       <h1>FIND YOUR WORDLE</h1>
-      <form onSubmit={(e) => searchWord(e)}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className='input-field'>
           <input
             type='text'
@@ -116,6 +124,11 @@ function App() {
             value={firstLetter.toUpperCase()}
             onFocus={() => setFirstLetter("")}
             onChange={(e) => setFirstLetter(e.target.value)}
+            className={`${
+              firstLetter !== "?" && firstLetter.length > 0
+                ? "input-entered"
+                : "input-blank"
+            }`}
           ></input>
           <input
             type='text'
@@ -124,6 +137,11 @@ function App() {
             value={secondLetter.toUpperCase()}
             onFocus={() => setSecondLetter("")}
             onChange={(e) => setSecondLetter(e.target.value)}
+            className={`${
+              secondLetter !== "?" && secondLetter.length > 0
+                ? "input-entered"
+                : "input-blank"
+            }`}
           ></input>
           <input
             type='text'
@@ -132,6 +150,11 @@ function App() {
             value={thirdLetter.toUpperCase()}
             onFocus={() => setThirdLetter("")}
             onChange={(e) => setThirdLetter(e.target.value)}
+            className={`${
+              thirdLetter !== "?" && thirdLetter.length > 0
+                ? "input-entered"
+                : "input-blank"
+            }`}
           ></input>
           <input
             type='text'
@@ -140,6 +163,11 @@ function App() {
             value={fourthLetter.toUpperCase()}
             onFocus={() => setFourthLetter("")}
             onChange={(e) => setFourthLetter(e.target.value)}
+            className={`${
+              fourthLetter !== "?" && fourthLetter.length > 0
+                ? "input-entered"
+                : "input-blank"
+            }`}
           ></input>
           <input
             type='text'
@@ -148,6 +176,11 @@ function App() {
             value={fifthLetter.toUpperCase()}
             onFocus={() => setFifthLetter("")}
             onChange={(e) => setFifthLetter(e.target.value)}
+            className={`${
+              fifthLetter !== "?" && fifthLetter.length > 0
+                ? "input-entered"
+                : "input-blank"
+            }`}
           ></input>
         </div>
         <button className='search-button'>Search</button>

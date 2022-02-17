@@ -28,6 +28,12 @@ input {
   color: white;
   background-color: black;
 }
+.input-entered {
+  background-color: green;
+}
+.input-blank {
+  background-color: black;
+}
 button {
   width: 16rem;
   height: 4rem;
@@ -80,9 +86,6 @@ button {
     margin: 0.5rem;
     font-size: 2rem;
     text-align: center;
-    border: 2px solid gray;
-    color: white;
-    background-color: black;
   }
   .letter-list {
     width: 90%;

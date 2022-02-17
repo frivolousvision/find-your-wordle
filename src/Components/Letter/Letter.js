@@ -6,8 +6,8 @@ const Letter = (props) => {
 
   const handleLetterClick = (letter) => {
     if (selected) {
-      props.includeLetter(letter);
       setSelected(false);
+      props.includeLetter(letter);
     } else {
       setSelected(true);
       props.excludeLetter(letter);
