@@ -11,11 +11,17 @@ p {
   width: 2rem;
   border-radius: 2px;
 }
-.not-selected {
+.nonexistent-not-selected {
   background-color: gray;
 }
-.selected {
+.nonexistent-selected {
   background-color: rgb(49, 49, 49);
+}
+.existent-not-selected {
+  background-color: gray;
+}
+.existent-selected {
+  background-color: #b49c3c;
 }
 @media only screen and (max-width: 600px) {
   .container {

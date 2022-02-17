@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
-import Letter from "./Components/Letter/Letter";
+import LettersToExclude from "./Components/Letter/LettersToExclude";
+import LettersToInclude from "./Components/Letter/LettersToInclude";
 import "./App.css";
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
   const [fourthLetter, setFourthLetter] = useState("?");
   const [fifthLetter, setFifthLetter] = useState("?");
   const [possibleWords, setPossibleWords] = useState([]);
-  const [nonexistentLetters] = useState([]);
+  const [nonexistentLetters, setNonexistentLetters] = useState([]);
+  const [existentLetters, setExistentLetters] = useState([]);
   const [allLetters] = useState([
     "Q",
     "W",
@@ -41,6 +43,7 @@ function App() {
   const myRef = useRef(null);
 
   let word = ["?", "?", "?", "?", "?"];
+
   const handleScroll = () => {
     myRef.current.scrollIntoView({ behavior: "smooth" });
   };
@@ -52,7 +55,6 @@ function App() {
     }, 500);
   };
   const searchWord = async () => {
-    console.log("search word called");
     if (firstLetter.length > 0 && typeof firstLetter === "string") {
       word.splice(0, 1, firstLetter);
     } else {
@@ -84,16 +86,27 @@ function App() {
       setFifthLetter("?");
     }
     let wordToSearch = word.join("");
-    const result = await fetch(
-      `https://api.datamuse.com/words?sp=${wordToSearch}`
-    );
-    const jsonResult = await result.json();
-    setPossibleWords(jsonResult);
+    if (existentLetters.length === 0) {
+      const result = await fetch(
+        `https://api.datamuse.com/words?sp=${wordToSearch}`
+      );
+      const jsonResult = await result.json();
+      setPossibleWords(jsonResult);
+    } else if (existentLetters.length > 0) {
+      const result = await fetch(
+        `https://api.datamuse.com/words?sp=${wordToSearch},*${existentLetters
+          .join("")
+          .toLowerCase()}*
+          `
+      );
+      const jsonResult = await result.json();
+      setPossibleWords(jsonResult);
+    }
 
-    filterWords();
+    // filterWords();
   };
 
-  const filterWords = () => {
+  const filterNonexistentLetters = () => {
     for (let i = 0; i < nonexistentLetters.length; i++) {
       setPossibleWords(
         possibleWords.filter(
@@ -104,23 +117,46 @@ function App() {
         )
       );
     }
-    console.log(nonexistentLetters);
+  };
+  const filterExistentLetters = () => {
+    for (let i = 0; i < existentLetters.length; i++) {
+      setPossibleWords(
+        possibleWords.filter((word) =>
+          word.word.toLowerCase().includes(existentLetters[i].toLowerCase())
+        )
+      );
+    }
   };
 
-  const excludeLetter = (letter) => {
+  const selectExcludedLetter = (letter) => {
     nonexistentLetters.push(letter);
-    filterWords();
+    if (possibleWords.length > 0) {
+      filterNonexistentLetters();
+    }
   };
-  const includeLetter = (letter) => {
-    let index = nonexistentLetters.findIndex((x) => x === letter);
-    nonexistentLetters.splice(index, 1);
-    console.log(index);
-    searchWord();
+  const deselectExcludedLetter = (letter) => {
+    setNonexistentLetters(nonexistentLetters.filter((x) => x !== letter));
+    if (possibleWords.length > 0) {
+      searchWord();
+    }
+  };
+  const selectIncludedLetter = (letter) => {
+    existentLetters.push(letter);
+    if (possibleWords.length > 0) {
+      filterExistentLetters();
+    }
+  };
+  const deselectIncludedLetter = (letter) => {
+    setExistentLetters(existentLetters.filter((x) => x !== letter));
+    if (possibleWords.length > 0) {
+      searchWord();
+    }
   };
 
   return (
     <div className='App'>
       <h1>FIND YOUR WORDLE</h1>
+      <p>Enter your green letters here:</p>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className='input-field'>
           <input
@@ -191,21 +227,36 @@ function App() {
         </div>
         <button className='search-button'>Search</button>
       </form>
-      {/* <button onClick={() => filterWords()} className='filter-button'>
-        Filter
-      </button> */}
-      <h2>Select letters to exclude:</h2>
-      <div className='letter-list'>
+      <div ref={myRef}></div>
+      {possibleWords.length > 0 ? (
+        <h3>Select letters you know aren't in the word:</h3>
+      ) : null}
+      <div className='nonexistent-letter-list'>
         {allLetters.map((letter, index) => (
-          <Letter
+          <LettersToExclude
             letter={letter}
             key={index}
-            excludeLetter={excludeLetter}
-            includeLetter={includeLetter}
+            selectExcludedLetter={selectExcludedLetter}
+            deselectExcludedLetter={deselectExcludedLetter}
+            possibleWords={possibleWords}
           />
         ))}
       </div>
-      {possibleWords.length > 0 ? <h1 ref={myRef}>Possible Wordles:</h1> : null}
+      {possibleWords.length > 0 ? (
+        <h3>Select letters you know are in the word:</h3>
+      ) : null}
+      <div className='existent-letter-list'>
+        {allLetters.map((letter, index) => (
+          <LettersToInclude
+            letter={letter}
+            key={index}
+            selectIncludedLetter={selectIncludedLetter}
+            deselectIncludedLetter={deselectIncludedLetter}
+            possibleWords={possibleWords}
+          />
+        ))}
+      </div>
+      {possibleWords.length > 0 ? <h1>Possible Wordles:</h1> : null}
       <div className='word-list'>
         {possibleWords
           ? possibleWords.map((word, index) => (

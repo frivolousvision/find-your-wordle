@@ -9,11 +9,13 @@
 }
 h1,
 h2,
+h3,
 p {
   color: white;
 }
 h1 {
-  margin-top: 5rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
   font-family: "Merriweather";
   font-size: 3rem;
 }
@@ -55,14 +57,20 @@ button {
   margin-top: 0.5rem;
   background-color: rgb(16, 81, 221);
 }
-.letter-list {
-  width: 70%;
+.nonexistent-letter-list {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.existent-letter-list {
+  width: 40%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 .word-list {
-  width: 70%;
+  width: 50%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -91,8 +99,18 @@ button {
     font-size: 1.8rem;
     text-align: center;
   }
-  .letter-list {
+  .nonexistent-letter-list {
     width: 90%;
+    margin-bottom: 2rem;
+  }
+  .existent-letter-list {
+    width: 90%;
+  }
+  .word-list {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
   }
   .each-word {
     margin: 0.8rem;
