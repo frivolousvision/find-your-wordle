@@ -4,6 +4,7 @@ import LettersToInclude from "./Components/Letter/LettersToInclude";
 import "./App.css";
 
 function App() {
+  const [searched, setSearched] = useState(false);
   const [firstLetter, setFirstLetter] = useState("?");
   const [secondLetter, setSecondLetter] = useState("?");
   const [thirdLetter, setThirdLetter] = useState("?");
@@ -55,6 +56,7 @@ function App() {
     }, 500);
   };
   const searchWord = async () => {
+    setSearched(true);
     if (firstLetter.length > 0 && typeof firstLetter === "string") {
       word.splice(0, 1, firstLetter);
     } else {
@@ -98,6 +100,13 @@ function App() {
           .join("")
           .toLowerCase()}*
           `
+      );
+      const jsonResult = await result.json();
+      setPossibleWords(jsonResult);
+    } else if (nonexistentLetters.length > 0) {
+      setNonexistentLetters([]);
+      const result = await fetch(
+        `https://api.datamuse.com/words?sp=${wordToSearch}`
       );
       const jsonResult = await result.json();
       setPossibleWords(jsonResult);
@@ -155,7 +164,10 @@ function App() {
 
   return (
     <div className='App'>
-      <h1>FIND YOUR WORDLE</h1>
+      {/* <p>Trouble finding your wordle?</p> */}
+      <h1 className={`header ${searched ? "searched" : "not-searched"}`}>
+        FIND YOUR WORDLE
+      </h1>
       <p>Enter your green letters here:</p>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className='input-field'>
