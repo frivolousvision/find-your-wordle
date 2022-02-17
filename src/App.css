@@ -95,6 +95,8 @@ button {
   }
   .each-word {
     margin: 0.8rem;
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
   }
 }
 @media only screen and (min-width: 600px) {
