@@ -66,7 +66,7 @@ button {
 .each-word {
   display: flex;
   justify-content: space-around;
-  margin: 2rem;
+  margin: 1rem;
   font-size: 1.2rem;
 }
 @media only screen and (max-width: 600px) {
@@ -81,14 +81,17 @@ button {
     margin: 0 auto;
   }
   input {
-    width: 2rem;
-    height: 2rem;
+    width: 20%;
+    height: 2.4rem;
     margin: 0.2rem;
     font-size: 1.8rem;
     text-align: center;
   }
   .letter-list {
     width: 90%;
+  }
+  .each-word {
+    margin: 0.8rem;
   }
 }
 @media only screen and (min-width: 600px) {
