@@ -81,10 +81,10 @@ button {
     margin: 0 auto;
   }
   input {
-    width: 2.8rem;
-    height: 2.8rem;
-    margin: 0.5rem;
-    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+    margin: 0.2rem;
+    font-size: 1.8rem;
     text-align: center;
   }
   .letter-list {
