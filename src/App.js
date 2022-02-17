@@ -199,6 +199,7 @@ function App() {
           />
         ))}
       </div>
+      {possibleWords.length > 0 ? <h1>Possible Wordles:</h1> : null}
       <div className='word-list'>
         {possibleWords
           ? possibleWords.map((word, index) => (
