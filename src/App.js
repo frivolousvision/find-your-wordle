@@ -95,21 +95,29 @@ function App() {
       const jsonResult = await result.json();
       setPossibleWords(jsonResult);
     } else if (existentLetters.length > 0) {
-      const result = await fetch(
-        `https://api.datamuse.com/words?sp=${wordToSearch},*${existentLetters
-          .join("")
-          .toLowerCase()}*
-          `
-      );
-      const jsonResult = await result.json();
-      setPossibleWords(jsonResult);
+      try {
+        const result = await fetch(
+          `https://api.datamuse.com/words?sp=${wordToSearch},*${existentLetters
+            .join("")
+            .toLowerCase()}*
+            `
+        );
+        const jsonResult = await result.json();
+        setPossibleWords(jsonResult);
+      } catch (error) {
+        console.log(error.message);
+      }
     } else if (nonexistentLetters.length > 0) {
-      setNonexistentLetters([]);
-      const result = await fetch(
-        `https://api.datamuse.com/words?sp=${wordToSearch}`
-      );
-      const jsonResult = await result.json();
-      setPossibleWords(jsonResult);
+      try {
+        setNonexistentLetters([]);
+        const result = await fetch(
+          `https://api.datamuse.com/words?sp=${wordToSearch}`
+        );
+        const jsonResult = await result.json();
+        setPossibleWords(jsonResult);
+      } catch (error) {
+        console.log(error.message);
+      }
     }
 
     // filterWords();
