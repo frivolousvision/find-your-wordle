@@ -1,0 +1,30 @@
+p {
+  color: white;
+  font-weight: 900;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 2px;
+}
+.not-selected {
+  background-color: gray;
+}
+.selected {
+  background-color: rgb(49, 49, 49);
+}
+.container:hover {
+  background-color: rgb(175, 175, 175);
+  cursor: pointer;
+}
+@media only screen and (max-width: 600px) {
+  .container {
+    margin: 0.25rem;
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+}
