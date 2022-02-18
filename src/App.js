@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import LettersToExclude from "./Components/Letter/LettersToExclude";
 import LettersToInclude from "./Components/Letter/LettersToInclude";
+import OnlyYellowsLettersToInclude from "./Components/Letter/OnlyYellowsLettersToInclude";
 import "./App.css";
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
   const [possibleWords, setPossibleWords] = useState([]);
   const [nonexistentLetters, setNonexistentLetters] = useState([]);
   const [existentLetters, setExistentLetters] = useState([]);
+  const [onlyYellows, setOnlyYellows] = useState(false);
+  const [haveGreen, setHaveGreen] = useState(false);
   const [allLetters] = useState([
     "Q",
     "W",
@@ -119,8 +122,6 @@ function App() {
         console.log(error.message);
       }
     }
-
-    // filterWords();
   };
 
   const filterNonexistentLetters = () => {
@@ -169,84 +170,130 @@ function App() {
       searchWord();
     }
   };
+  const handleYellowGreenToggle = () => {
+    if (!onlyYellows) {
+      setOnlyYellows(true);
+      setHaveGreen(false);
+      setPossibleWords([]);
+    } else {
+      setOnlyYellows(false);
+      setHaveGreen(true);
+      setPossibleWords([]);
+    }
+  };
 
   return (
     <div className='App'>
-      {/* <p>Trouble finding your wordle?</p> */}
       <h1 className={`header ${searched ? "searched" : "not-searched"}`}>
         FIND YOUR WORDLE
       </h1>
-      <p>Enter your green letters here:</p>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div className='input-field'>
-          <input
-            type='text'
-            maxLength={1}
-            placeholder='?'
-            value={firstLetter.toUpperCase()}
-            onFocus={() => setFirstLetter("")}
-            onChange={(e) => setFirstLetter(e.target.value)}
-            className={`${
-              firstLetter !== "?" && firstLetter.length > 0
-                ? "input-entered"
-                : "input-blank"
-            }`}
-          ></input>
-          <input
-            type='text'
-            maxLength={1}
-            placeholder='?'
-            value={secondLetter.toUpperCase()}
-            onFocus={() => setSecondLetter("")}
-            onChange={(e) => setSecondLetter(e.target.value)}
-            className={`${
-              secondLetter !== "?" && secondLetter.length > 0
-                ? "input-entered"
-                : "input-blank"
-            }`}
-          ></input>
-          <input
-            type='text'
-            maxLength={1}
-            placeholder='?'
-            value={thirdLetter.toUpperCase()}
-            onFocus={() => setThirdLetter("")}
-            onChange={(e) => setThirdLetter(e.target.value)}
-            className={`${
-              thirdLetter !== "?" && thirdLetter.length > 0
-                ? "input-entered"
-                : "input-blank"
-            }`}
-          ></input>
-          <input
-            type='text'
-            maxLength={1}
-            placeholder='?'
-            value={fourthLetter.toUpperCase()}
-            onFocus={() => setFourthLetter("")}
-            onChange={(e) => setFourthLetter(e.target.value)}
-            className={`${
-              fourthLetter !== "?" && fourthLetter.length > 0
-                ? "input-entered"
-                : "input-blank"
-            }`}
-          ></input>
-          <input
-            type='text'
-            maxLength={1}
-            placeholder='?'
-            value={fifthLetter.toUpperCase()}
-            onFocus={() => setFifthLetter("")}
-            onChange={(e) => setFifthLetter(e.target.value)}
-            className={`${
-              fifthLetter !== "?" && fifthLetter.length > 0
-                ? "input-entered"
-                : "input-blank"
-            }`}
-          ></input>
+      {onlyYellows && possibleWords.length === 0 ? (
+        <div className='only-yellows-container'>
+          <h3>Select letters your yellow letters:</h3>
+          <div className='existent-letter-list'>
+            {allLetters.map((letter, index) => (
+              <OnlyYellowsLettersToInclude
+                letter={letter}
+                key={index}
+                selectIncludedLetter={selectIncludedLetter}
+                deselectIncludedLetter={deselectIncludedLetter}
+                possibleWords={possibleWords}
+              />
+            ))}
+          </div>
         </div>
-        <button className='search-button'>Search</button>
+      ) : null}
+      {!onlyYellows ? <p>Enter your green letters here:</p> : null}
+      <form onSubmit={(e) => handleSubmit(e)}>
+        {!onlyYellows ? (
+          <div className='input-field'>
+            <input
+              type='text'
+              maxLength={1}
+              placeholder='?'
+              value={firstLetter.toUpperCase()}
+              onFocus={() => setFirstLetter("")}
+              onChange={(e) => setFirstLetter(e.target.value)}
+              className={`${
+                firstLetter !== "?" && firstLetter.length > 0
+                  ? "input-entered"
+                  : "input-blank"
+              }`}
+            ></input>
+            <input
+              type='text'
+              maxLength={1}
+              placeholder='?'
+              value={secondLetter.toUpperCase()}
+              onFocus={() => setSecondLetter("")}
+              onChange={(e) => setSecondLetter(e.target.value)}
+              className={`${
+                secondLetter !== "?" && secondLetter.length > 0
+                  ? "input-entered"
+                  : "input-blank"
+              }`}
+            ></input>
+            <input
+              type='text'
+              maxLength={1}
+              placeholder='?'
+              value={thirdLetter.toUpperCase()}
+              onFocus={() => setThirdLetter("")}
+              onChange={(e) => setThirdLetter(e.target.value)}
+              className={`${
+                thirdLetter !== "?" && thirdLetter.length > 0
+                  ? "input-entered"
+                  : "input-blank"
+              }`}
+            ></input>
+            <input
+              type='text'
+              maxLength={1}
+              placeholder='?'
+              value={fourthLetter.toUpperCase()}
+              onFocus={() => setFourthLetter("")}
+              onChange={(e) => setFourthLetter(e.target.value)}
+              className={`${
+                fourthLetter !== "?" && fourthLetter.length > 0
+                  ? "input-entered"
+                  : "input-blank"
+              }`}
+            ></input>
+            <input
+              type='text'
+              maxLength={1}
+              placeholder='?'
+              value={fifthLetter.toUpperCase()}
+              onFocus={() => setFifthLetter("")}
+              onChange={(e) => setFifthLetter(e.target.value)}
+              className={`${
+                fifthLetter !== "?" && fifthLetter.length > 0
+                  ? "input-entered"
+                  : "input-blank"
+              }`}
+            ></input>
+          </div>
+        ) : null}
+        {possibleWords.length === 0 ? (
+          <button className='search-button'>Search</button>
+        ) : null}
       </form>
+      {!onlyYellows ? (
+        <p
+          onClick={() => handleYellowGreenToggle()}
+          className='toggle-yellow-green-button'
+        >
+          I only have yellow letters
+        </p>
+      ) : null}
+      {onlyYellows ? (
+        <p
+          onClick={() => handleYellowGreenToggle()}
+          className='toggle-yellow-green-button'
+        >
+          I have green letters now
+        </p>
+      ) : null}
       <div ref={myRef}></div>
       {possibleWords.length > 0 ? (
         <h3>Select letters you know aren't in the word:</h3>
@@ -259,6 +306,7 @@ function App() {
             selectExcludedLetter={selectExcludedLetter}
             deselectExcludedLetter={deselectExcludedLetter}
             possibleWords={possibleWords}
+            haveGreen={haveGreen}
           />
         ))}
       </div>
@@ -273,6 +321,7 @@ function App() {
             selectIncludedLetter={selectIncludedLetter}
             deselectIncludedLetter={deselectIncludedLetter}
             possibleWords={possibleWords}
+            haveGreen={haveGreen}
           />
         ))}
       </div>

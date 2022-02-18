@@ -19,6 +19,12 @@ h1 {
   font-family: "Merriweather";
   font-size: 3rem;
 }
+.only-yellows-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .input-field {
   display: flex;
   justify-content: space-evenly;
@@ -38,6 +44,10 @@ input {
 }
 .input-blank {
   background-color: black;
+}
+.toggle-yellow-green-button {
+  text-decoration: underline;
+  margin-top: 1rem;
 }
 button {
   width: 16rem;

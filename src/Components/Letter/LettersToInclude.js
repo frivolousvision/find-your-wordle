@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./letter.css";
 
 const LettersToInclude = (props) => {
   const [selected, setSelected] = useState(false);
+
+  useEffect(() => {
+    if (props.haveGreen) {
+      setSelected(false);
+    }
+  }, [props.haveGreen]);
 
   const handleLetterClick = (letter) => {
     if (selected) {
