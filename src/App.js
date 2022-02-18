@@ -278,6 +278,7 @@ function App() {
           <button className='search-button'>Search</button>
         ) : null}
       </form>
+      <div ref={myRef}></div>
       {!onlyYellows ? (
         <p
           onClick={() => handleYellowGreenToggle()}
@@ -294,7 +295,6 @@ function App() {
           I have green letters now
         </p>
       ) : null}
-      <div ref={myRef}></div>
       {possibleWords.length > 0 ? (
         <h3>Select letters you know aren't in the word:</h3>
       ) : null}
