@@ -59,7 +59,10 @@ function App() {
     }, 500);
   };
   const searchWord = async () => {
-    setSearched(true);
+    if (searched) {
+      setNonexistentLetters([]);
+      setHaveGreen(true);
+    }
     if (firstLetter.length > 0 && typeof firstLetter === "string") {
       word.splice(0, 1, firstLetter);
     } else {
@@ -122,6 +125,7 @@ function App() {
         console.log(error.message);
       }
     }
+    setSearched(true);
   };
 
   const filterNonexistentLetters = () => {
@@ -274,8 +278,11 @@ function App() {
             ></input>
           </div>
         ) : null}
-        {possibleWords.length === 0 ? (
+        {possibleWords.length === 0 && !searched ? (
           <button className='search-button'>Search</button>
+        ) : null}
+        {searched ? (
+          <button className='search-button'>Search Again</button>
         ) : null}
       </form>
       <div ref={myRef}></div>
