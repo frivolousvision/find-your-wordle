@@ -7,10 +7,10 @@ const OnlyYellowsLettersToInclude = (props) => {
   const handleLetterClick = (letter) => {
     if (selected) {
       setSelected(false);
-      props.deselectIncludedLetter(letter);
+      props.deselectOnlyYellowLetter(letter);
     } else {
       setSelected(true);
-      props.selectIncludedLetter(letter);
+      props.selectOnlyYellowLetter(letter);
     }
   };
   return (

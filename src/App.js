@@ -46,7 +46,7 @@ function App() {
   ]);
   const myRef = useRef(null);
 
-  let word = ["?", "?", "?", "?", "?"];
+  const [word] = useState(["?", "?", "?", "?", "?"]);
 
   const handleScroll = () => {
     myRef.current.scrollIntoView({ behavior: "smooth" });
@@ -60,7 +60,7 @@ function App() {
   };
   const searchWord = async () => {
     if (searched) {
-      setNonexistentLetters([]);
+      // setNonexistentLetters([]);
       setHaveGreen(true);
     }
     if (firstLetter.length > 0 && typeof firstLetter === "string") {
@@ -115,7 +115,7 @@ function App() {
       }
     } else if (nonexistentLetters.length > 0) {
       try {
-        setNonexistentLetters([]);
+        // setNonexistentLetters([]);
         const result = await fetch(
           `https://api.datamuse.com/words?sp=${wordToSearch}`
         );
@@ -124,6 +124,9 @@ function App() {
       } catch (error) {
         console.log(error.message);
       }
+    }
+    if (nonexistentLetters.length > 0) {
+      filterNonexistentLetters();
     }
     setSearched(true);
   };
@@ -164,11 +167,25 @@ function App() {
   };
   const selectIncludedLetter = (letter) => {
     existentLetters.push(letter);
+    searchWord();
+    // if (possibleWords.length > 0) {
+    //   filterExistentLetters();
+    // }
+  };
+  const deselectIncludedLetter = (letter) => {
+    setExistentLetters(existentLetters.filter((x) => x !== letter));
+    if (possibleWords.length > 0) {
+      searchWord();
+    }
+  };
+  const selectOnlyYellowLetter = (letter) => {
+    existentLetters.push(letter);
+    // searchWord();
     if (possibleWords.length > 0) {
       filterExistentLetters();
     }
   };
-  const deselectIncludedLetter = (letter) => {
+  const deselectOnlyYellowLetter = (letter) => {
     setExistentLetters(existentLetters.filter((x) => x !== letter));
     if (possibleWords.length > 0) {
       searchWord();
@@ -185,11 +202,14 @@ function App() {
       setPossibleWords([]);
     }
   };
+  const refreshPage = () => {
+    window.location.reload(false);
+  };
 
   return (
     <div className='App'>
       <h1 className={`header ${searched ? "searched" : "not-searched"}`}>
-        FIND YOUR WORDLE
+        Find Your Wordle
       </h1>
       {onlyYellows && possibleWords.length === 0 ? (
         <div className='only-yellows-container'>
@@ -199,8 +219,8 @@ function App() {
               <OnlyYellowsLettersToInclude
                 letter={letter}
                 key={index}
-                selectIncludedLetter={selectIncludedLetter}
-                deselectIncludedLetter={deselectIncludedLetter}
+                selectOnlyYellowLetter={selectOnlyYellowLetter}
+                deselectOnlyYellowLetter={deselectOnlyYellowLetter}
                 possibleWords={possibleWords}
               />
             ))}
@@ -278,15 +298,17 @@ function App() {
             ></input>
           </div>
         ) : null}
-        {possibleWords.length === 0 && !searched ? (
-          <button className='search-button'>Search</button>
-        ) : null}
-        {searched ? (
-          <button className='search-button'>Search Again</button>
-        ) : null}
+        {/* {possibleWords.length === 0 && !searched ? ( */}
+        <button className='search-button'>Search</button>
+        {/* ) : null} */}
       </form>
+      {/* {searched ? (
+        <button className='search-button' onClick={() => refreshPage()}>
+          New Search
+        </button>
+      ) : null} */}
       <div ref={myRef}></div>
-      {!onlyYellows ? (
+      {!onlyYellows && !searched ? (
         <p
           onClick={() => handleYellowGreenToggle()}
           className='toggle-yellow-green-button'
@@ -314,6 +336,10 @@ function App() {
             deselectExcludedLetter={deselectExcludedLetter}
             possibleWords={possibleWords}
             haveGreen={haveGreen}
+            existentLetters={existentLetters}
+            nonexistentLetters={nonexistentLetters}
+            searched={searched}
+            word={word}
           />
         ))}
       </div>
@@ -329,6 +355,10 @@ function App() {
             deselectIncludedLetter={deselectIncludedLetter}
             possibleWords={possibleWords}
             haveGreen={haveGreen}
+            existentLetters={existentLetters}
+            nonexistentLetters={nonexistentLetters}
+            searched={searched}
+            word={word}
           />
         ))}
       </div>
