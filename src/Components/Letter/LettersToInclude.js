@@ -31,7 +31,15 @@ const LettersToInclude = (props) => {
         }
       }
     }
-  }, [props.haveGreen, props.searched, props.possibleWords]);
+  }, [
+    props.haveGreen,
+    props.searched,
+    props.possibleWords,
+    props.word,
+    props.nonexistentLetters,
+    props.existentLetters,
+    props.letter,
+  ]);
 
   const handleLetterClick = (letter) => {
     if (selected) {

@@ -202,9 +202,6 @@ function App() {
       setPossibleWords([]);
     }
   };
-  const refreshPage = () => {
-    window.location.reload(false);
-  };
 
   return (
     <div className='App'>
