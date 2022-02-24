@@ -100,35 +100,51 @@ function App() {
       setPossibleWords(jsonResult);
     } else if (existentLetters.length > 0) {
       try {
-        const result = await fetch(
-          `https://api.datamuse.com/words?sp=${wordToSearch},*${existentLetters
-            .join("")
-            .toLowerCase()}*
+        if (existentLetters.length === 1) {
+          const result = await fetch(
+            `https://api.datamuse.com/words?sp=${wordToSearch},*${existentLetters
+              .join("")
+              .toLowerCase()}*
             `
-        );
-        const jsonResult = await result.json();
-        setPossibleWords(jsonResult);
-        if (nonexistentLetters.length > 0) {
-          filterNonexistentLetters();
+          );
+          const jsonResult = await result.json();
+          if (nonexistentLetters.length > 0) {
+            const booleanArray = await filterOnSearch(jsonResult);
+            setPossibleWords(
+              jsonResult.filter((value, index) => booleanArray[index])
+            );
+          } else {
+            setPossibleWords(jsonResult);
+          }
+        } else {
+          let letterString = formatExistentLetterString(existentLetters);
+          const result = await fetch(
+            `https://api.datamuse.com/words?sp=${wordToSearch}${letterString}
+              `
+          );
+          const jsonResult = await result.json();
+          if (nonexistentLetters.length > 0) {
+            const booleanArray = await filterOnSearch(jsonResult);
+            setPossibleWords(
+              jsonResult.filter((value, index) => booleanArray[index])
+            );
+          } else {
+            setPossibleWords(jsonResult);
+          }
         }
       } catch (error) {
         console.log(error.message);
       }
     }
-
-    // else if (nonexistentLetters.length > 0) {
-    //   console.log("nonexistent letters lenght over 0");
-    //   try {
-    //     const result = await fetch(
-    //       `https://api.datamuse.com/words?sp=${wordToSearch}`
-    //     );
-    //     const jsonResult = await result.json();
-    //     setPossibleWords(jsonResult);
-    //   } catch (error) {
-    //     console.log(error.message);
-    //   }
-    // }
     setSearched(true);
+  };
+
+  const formatExistentLetterString = (arr) => {
+    let newArray = [];
+    for (let i = 0; i < arr.length; i++) {
+      newArray.push(arr[i].concat("*"));
+    }
+    return ",*" + newArray.join(`,*`).toLowerCase();
   };
 
   const filterNonexistentLetters = () => {
@@ -143,6 +159,16 @@ function App() {
       );
     }
   };
+
+  const filterOnSearch = (arr) => {
+    for (let i = 0; i < nonexistentLetters.length; i++) {
+      return arr.map(
+        (word) =>
+          !word.word.toLowerCase().includes(nonexistentLetters[i].toLowerCase())
+      );
+    }
+  };
+
   const filterExistentLetters = () => {
     for (let i = 0; i < existentLetters.length; i++) {
       setPossibleWords(
@@ -159,12 +185,14 @@ function App() {
       filterNonexistentLetters();
     }
   };
+
   const deselectExcludedLetter = (letter) => {
     setNonexistentLetters(nonexistentLetters.filter((x) => x !== letter));
     if (possibleWords.length > 0) {
       searchWord();
     }
   };
+
   const selectIncludedLetter = (letter) => {
     existentLetters.push(letter);
     searchWord();
@@ -172,12 +200,14 @@ function App() {
     //   filterExistentLetters();
     // }
   };
+
   const deselectIncludedLetter = (letter) => {
     setExistentLetters(existentLetters.filter((x) => x !== letter));
     if (possibleWords.length > 0) {
       searchWord();
     }
   };
+
   const selectOnlyYellowLetter = (letter) => {
     existentLetters.push(letter);
     // searchWord();
@@ -185,12 +215,14 @@ function App() {
       filterExistentLetters();
     }
   };
+
   const deselectOnlyYellowLetter = (letter) => {
     setExistentLetters(existentLetters.filter((x) => x !== letter));
     if (possibleWords.length > 0) {
       searchWord();
     }
   };
+
   const handleYellowGreenToggle = () => {
     if (!onlyYellows) {
       setOnlyYellows(true);
