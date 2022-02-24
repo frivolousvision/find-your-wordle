@@ -93,47 +93,51 @@ function App() {
     }
     let wordToSearch = word.join("");
     if (existentLetters.length === 0) {
-      const result = await fetch(
-        `https://api.datamuse.com/words?sp=${wordToSearch}`
-      );
-      const jsonResult = await result.json();
-      setPossibleWords(jsonResult);
-    } else if (existentLetters.length > 0) {
       try {
-        if (existentLetters.length === 1) {
+        const result = await fetch(
+          `https://api.datamuse.com/words?sp=${wordToSearch}`
+        );
+        const jsonResult = await result.json();
+        setPossibleWords(jsonResult);
+      } catch (error) {
+        console.log(error.message);
+      }
+    } else if (existentLetters.length > 0) {
+      if (existentLetters.length === 1 && nonexistentLetters.length === 0) {
+        try {
           const result = await fetch(
             `https://api.datamuse.com/words?sp=${wordToSearch},*${existentLetters
               .join("")
               .toLowerCase()}*
-            `
-          );
-          const jsonResult = await result.json();
-          if (nonexistentLetters.length > 0) {
-            const booleanArray = await filterOnSearch(jsonResult);
-            setPossibleWords(
-              jsonResult.filter((value, index) => booleanArray[index])
-            );
-          } else {
-            setPossibleWords(jsonResult);
-          }
-        } else {
-          let letterString = formatExistentLetterString(existentLetters);
-          const result = await fetch(
-            `https://api.datamuse.com/words?sp=${wordToSearch}${letterString}
               `
           );
           const jsonResult = await result.json();
-          if (nonexistentLetters.length > 0) {
-            const booleanArray = await filterOnSearch(jsonResult);
-            setPossibleWords(
-              jsonResult.filter((value, index) => booleanArray[index])
-            );
-          } else {
-            setPossibleWords(jsonResult);
-          }
+          setPossibleWords(jsonResult);
+        } catch (error) {
+          console.log(error.message);
         }
-      } catch (error) {
-        console.log(error.message);
+      } else if (
+        existentLetters.length === 1 &&
+        nonexistentLetters.length > 0
+      ) {
+        const result = await fetch(
+          `https://api.datamuse.com/words?sp=${wordToSearch},*${existentLetters
+            .join("")
+            .toLowerCase()}*-${nonexistentLetters.join("").toLowerCase()}
+              `
+        );
+        const jsonResult = await result.json();
+        setPossibleWords(jsonResult);
+      } else if (existentLetters.length > 1 && nonexistentLetters.length > 0) {
+        let existentLetterString = formatExistentLetterString(existentLetters);
+        const result = await fetch(
+          `https://api.datamuse.com/words?sp=${wordToSearch}${existentLetterString}-${nonexistentLetters
+            .join("")
+            .toLowerCase()}
+              `
+        );
+        const jsonResult = await result.json();
+        setPossibleWords(jsonResult);
       }
     }
     setSearched(true);
@@ -160,14 +164,14 @@ function App() {
     }
   };
 
-  const filterOnSearch = (arr) => {
-    for (let i = 0; i < nonexistentLetters.length; i++) {
-      return arr.map(
-        (word) =>
-          !word.word.toLowerCase().includes(nonexistentLetters[i].toLowerCase())
-      );
-    }
-  };
+  // const filterOnSearch = (arr) => {
+  //   for (let i = 0; i < nonexistentLetters.length; i++) {
+  //     return arr.map(
+  //       (word) =>
+  //         !word.word.toLowerCase().includes(nonexistentLetters[i].toLowerCase())
+  //     );
+  //   }
+  // };
 
   const filterExistentLetters = () => {
     for (let i = 0; i < existentLetters.length; i++) {
@@ -196,9 +200,6 @@ function App() {
   const selectIncludedLetter = (letter) => {
     existentLetters.push(letter);
     searchWord();
-    // if (possibleWords.length > 0) {
-    //   filterExistentLetters();
-    // }
   };
 
   const deselectIncludedLetter = (letter) => {
@@ -210,7 +211,6 @@ function App() {
 
   const selectOnlyYellowLetter = (letter) => {
     existentLetters.push(letter);
-    // searchWord();
     if (possibleWords.length > 0) {
       filterExistentLetters();
     }
@@ -327,16 +327,11 @@ function App() {
             ></input>
           </div>
         ) : null}
-        {/* {possibleWords.length === 0 && !searched ? ( */}
-        <button className='search-button'>Search</button>
-        {/* ) : null} */}
+        <div ref={myRef}></div>
+        {!searched ? <button className='search-button'>Search</button> : null}
+        {searched ? <p>Refresh page for a new search!</p> : null}
       </form>
-      {/* {searched ? (
-        <button className='search-button' onClick={() => refreshPage()}>
-          New Search
-        </button>
-      ) : null} */}
-      <div ref={myRef}></div>
+
       {!onlyYellows && !searched ? (
         <p
           onClick={() => handleYellowGreenToggle()}
