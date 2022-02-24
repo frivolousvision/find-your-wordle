@@ -44,9 +44,8 @@ function App() {
     "N",
     "M",
   ]);
-  const myRef = useRef(null);
-
   const [word] = useState(["?", "?", "?", "?", "?"]);
+  const myRef = useRef(null);
 
   const handleScroll = () => {
     myRef.current.scrollIntoView({ behavior: "smooth" });
@@ -60,7 +59,6 @@ function App() {
   };
   const searchWord = async () => {
     if (searched) {
-      // setNonexistentLetters([]);
       setHaveGreen(true);
     }
     if (firstLetter.length > 0 && typeof firstLetter === "string") {
@@ -110,24 +108,26 @@ function App() {
         );
         const jsonResult = await result.json();
         setPossibleWords(jsonResult);
-      } catch (error) {
-        console.log(error.message);
-      }
-    } else if (nonexistentLetters.length > 0) {
-      try {
-        // setNonexistentLetters([]);
-        const result = await fetch(
-          `https://api.datamuse.com/words?sp=${wordToSearch}`
-        );
-        const jsonResult = await result.json();
-        setPossibleWords(jsonResult);
+        if (nonexistentLetters.length > 0) {
+          filterNonexistentLetters();
+        }
       } catch (error) {
         console.log(error.message);
       }
     }
-    if (nonexistentLetters.length > 0) {
-      filterNonexistentLetters();
-    }
+
+    // else if (nonexistentLetters.length > 0) {
+    //   console.log("nonexistent letters lenght over 0");
+    //   try {
+    //     const result = await fetch(
+    //       `https://api.datamuse.com/words?sp=${wordToSearch}`
+    //     );
+    //     const jsonResult = await result.json();
+    //     setPossibleWords(jsonResult);
+    //   } catch (error) {
+    //     console.log(error.message);
+    //   }
+    // }
     setSearched(true);
   };
 

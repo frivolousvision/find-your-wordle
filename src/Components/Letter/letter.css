@@ -24,6 +24,7 @@ p {
   background-color: #b49c3c;
 }
 .disabled {
+  display: none;
   width: 25%;
   background: linear-gradient(
     to top right,
