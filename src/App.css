@@ -39,6 +39,7 @@ input {
   border: 2px solid gray;
   color: white;
   background-color: black;
+  caret-color: transparent;
 }
 .input-entered {
   background-color: green;
@@ -145,6 +146,9 @@ button {
   }
 }
 @media only screen and (min-width: 600px) {
+  h1 {
+    font-size: 6rem;
+  }
   button:hover {
     background-color: rgb(175, 175, 175);
     cursor: pointer;
