@@ -18,7 +18,11 @@ h1 {
   margin-bottom: 1rem;
   font-family: "Merriweather";
   font-weight: 900;
-  font-size: 3.2rem;
+  font-size: 3.5rem;
+}
+h2 {
+  font-size: 3rem;
+  font-family: "Merriweather";
 }
 .only-yellows-container {
   display: flex;
@@ -129,11 +133,11 @@ button {
     caret-color: transparent;
   }
   .nonexistent-letter-list {
-    width: 90%;
+    width: 95%;
     margin-bottom: 2rem;
   }
   .existent-letter-list {
-    width: 90%;
+    width: 95%;
   }
   .word-list {
     width: 80%;
