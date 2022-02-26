@@ -37,6 +37,7 @@ input {
   font-size: 8rem;
   text-align: center;
   border: 2px solid gray;
+  border-radius: 0;
   color: white;
   background-color: black;
   caret-color: transparent;
