@@ -26,12 +26,9 @@ p {
 .disabled {
   display: none;
   width: 25%;
-  background: linear-gradient(
-    to top right,
-    rgb(49, 49, 49) calc(50% - 3px),
-    red,
-    rgb(49, 49, 49) calc(50% + 3px)
-  );
+}
+.green-letter {
+  background-color: green;
 }
 @media only screen and (max-width: 600px) {
   .container {

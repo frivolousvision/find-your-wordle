@@ -4,6 +4,7 @@ import "./letter.css";
 const LettersToInclude = (props) => {
   const [selected, setSelected] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [greenLetter, setGreenLetter] = useState(false);
 
   useEffect(() => {
     if (props.haveGreen) {
@@ -12,6 +13,7 @@ const LettersToInclude = (props) => {
     for (let i = 0; i < props.word.length; i++) {
       if (props.word[i].toLowerCase() === props.letter.toLowerCase()) {
         setSelected(true);
+        setGreenLetter(true);
       }
     }
     for (let i = 0; i < props.existentLetters.length; i++) {
@@ -61,7 +63,9 @@ const LettersToInclude = (props) => {
         <div
           className={`container ${
             selected ? "existent-selected" : "existent-not-selected"
-          } ${disabled ? "disabled" : null}`}
+          } ${disabled ? "disabled" : null}
+            ${greenLetter ? "green-letter" : null}
+          `}
           onClick={!disabled ? () => handleLetterClick(props.letter) : null}
         >
           <p>{props.letter}</p>
