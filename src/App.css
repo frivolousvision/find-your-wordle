@@ -35,15 +35,20 @@ h2 {
   justify-content: space-evenly;
 }
 input {
-  width: 8rem;
-  height: 8rem;
+  width: 6rem;
+  height: 6rem;
   margin: 1rem;
-  font-size: 8rem;
+  font-size: 6rem;
   text-align: center;
   border: 2px solid gray;
   border-radius: 0;
   color: white;
   background-color: black;
+  caret-color: transparent;
+}
+input:focus {
+  border-radius: 0;
+  outline-color: green;
   caret-color: transparent;
 }
 .input-entered {
@@ -127,11 +132,6 @@ button {
     font-size: 1.8rem;
     text-align: center;
   }
-  input:focus {
-    border-radius: 0;
-    outline-color: green;
-    caret-color: transparent;
-  }
   .nonexistent-letter-list {
     width: 95%;
     margin-bottom: 2rem;
@@ -167,5 +167,13 @@ button {
   }
   .searched {
     margin-top: 2rem;
+  }
+  .only-yellows:hover {
+    color: #b49c3c;
+    cursor: pointer;
+  }
+  .have-greens:hover {
+    color: green;
+    cursor: pointer;
   }
 }

@@ -7,8 +7,8 @@ p {
   justify-content: center;
   align-items: center;
   margin: 0.25rem;
-  height: 3rem;
-  width: 2rem;
+  height: 5rem;
+  width: 3rem;
   border-radius: 2px;
 }
 .nonexistent-not-selected {
@@ -41,5 +41,8 @@ p {
   .container:hover {
     background-color: rgb(175, 175, 175);
     cursor: pointer;
+  }
+  .nonexistent-selected:hover {
+    background-color: rgb(49, 49, 49);
   }
 }

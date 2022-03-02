@@ -377,7 +377,7 @@ function App() {
       {!onlyYellows && !searched ? (
         <p
           onClick={() => handleYellowGreenToggle()}
-          className='toggle-yellow-green-button'
+          className='toggle-yellow-green-button only-yellows'
         >
           I only have yellow letters
         </p>
@@ -385,7 +385,7 @@ function App() {
       {onlyYellows ? (
         <p
           onClick={() => handleYellowGreenToggle()}
-          className='toggle-yellow-green-button'
+          className='toggle-yellow-green-button have-greens'
         >
           I have green letters now
         </p>
