@@ -1,6 +1,6 @@
 ## [Find Your Wordle!](https://www.findyourwordle.com/)
 
-# Getting Started with Create React App
+# Getting Started
 
 ## Available Scripts
 
