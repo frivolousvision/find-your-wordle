@@ -12,7 +12,7 @@ function App() {
   const [fourthLetter, setFourthLetter] = useState("?");
   const [fifthLetter, setFifthLetter] = useState("?");
   const [possibleWords, setPossibleWords] = useState([]);
-  const [nonexistentLetters, setNonexistentLetters] = useState([]);
+  const [nonexistentLetters] = useState([]);
   const [existentLetters, setExistentLetters] = useState([]);
   const [onlyYellows, setOnlyYellows] = useState(false);
   const [haveGreen, setHaveGreen] = useState(false);
@@ -190,18 +190,18 @@ function App() {
     return ",*" + newArray.join(`,*`).toLowerCase();
   };
 
-  const filterNonexistentLetters = () => {
-    for (let i = 0; i < nonexistentLetters.length; i++) {
-      setPossibleWords(
-        possibleWords.filter(
-          (word) =>
-            !word.word
-              .toLowerCase()
-              .includes(nonexistentLetters[i].toLowerCase())
-        )
-      );
-    }
-  };
+  // const filterNonexistentLetters = () => {
+  //   for (let i = 0; i < nonexistentLetters.length; i++) {
+  //     setPossibleWords(
+  //       possibleWords.filter(
+  //         (word) =>
+  //           !word.word
+  //             .toLowerCase()
+  //             .includes(nonexistentLetters[i].toLowerCase())
+  //       )
+  //     );
+  //   }
+  // };
 
   // const filterOnSearch = (arr) => {
   //   for (let i = 0; i < nonexistentLetters.length; i++) {
