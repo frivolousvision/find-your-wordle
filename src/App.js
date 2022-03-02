@@ -371,7 +371,9 @@ function App() {
         ) : null}
         <div ref={myRef}></div>
         {!searched ? <button className='search-button'>Search</button> : null}
-        {searched ? <p>Refresh page for a new search!</p> : null}
+        {possibleWords.length > 0 && searched ? (
+          <p>Refresh page for a new search!</p>
+        ) : null}
       </form>
 
       {!onlyYellows && !searched ? (
@@ -438,6 +440,12 @@ function App() {
             ))
           : null}
       </div>
+      {searched && possibleWords.length === 0 ? (
+        <h3>
+          Looks like there are no words matching that criteria. Refresh page for
+          a new search!
+        </h3>
+      ) : null}
     </div>
   );
 }

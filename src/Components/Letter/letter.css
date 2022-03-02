@@ -45,4 +45,7 @@ p {
   .nonexistent-selected:hover {
     background-color: rgb(49, 49, 49);
   }
+  .existent-selected:hover {
+    background-color: #b49c3c;
+  }
 }
