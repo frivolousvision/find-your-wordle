@@ -1,4 +1,4 @@
-## [Find Your Wordle!](https://www.findyourwordle.com/)
+## View this project live: [Find Your Wordle!](https://www.findyourwordle.com/)
 
 # Getting Started
 
