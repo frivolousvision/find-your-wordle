@@ -6,22 +6,24 @@ const LettersToExclude = (props) => {
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
-    // if (props.haveGreen) {
-    //   setSelected(false);
-    // }
     for (let i = 0; i < props.word.length; i++) {
       if (props.word[i].toLowerCase() === props.letter.toLowerCase()) {
         setDisabled(true);
       }
     }
-    if (props.existentLetters) {
-      for (let i = 0; i < props.existentLetters.length; i++) {
-        if (
-          props.existentLetters[i].toLowerCase() === props.letter.toLowerCase()
-        ) {
-          setDisabled(true);
-        }
-      }
+    // if (props.existentLetters) {
+    //   for (let i = 0; i < props.existentLetters.length; i++) {
+    //     if (
+    //       props.existentLetters[i].toLowerCase() === props.letter.toLowerCase()
+    //     ) {
+    //       setDisabled(true);
+    //     }
+    //   }
+    // }
+    if (props.existentLetters.includes(props.letter)) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
     }
   }, [
     props.haveGreen,

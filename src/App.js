@@ -92,7 +92,7 @@ function App() {
       setFifthLetter("?");
     }
     let wordToSearch = word.join("");
-    if (existentLetters.length === 0) {
+    if (existentLetters.length === 0 && nonexistentLetters.length === 0) {
       try {
         const result = await fetch(
           `https://api.datamuse.com/words?sp=${wordToSearch}`
@@ -120,35 +120,63 @@ function App() {
         existentLetters.length === 1 &&
         nonexistentLetters.length > 0
       ) {
-        const result = await fetch(
-          `https://api.datamuse.com/words?sp=${wordToSearch},*${existentLetters
-            .join("")
-            .toLowerCase()}*-${nonexistentLetters.join("").toLowerCase()}
-              `
-        );
-        const jsonResult = await result.json();
-        setPossibleWords(jsonResult);
+        try {
+          const result = await fetch(
+            `https://api.datamuse.com/words?sp=${wordToSearch},*${existentLetters
+              .join("")
+              .toLowerCase()}*-${nonexistentLetters.join("").toLowerCase()}
+                `
+          );
+          const jsonResult = await result.json();
+          setPossibleWords(jsonResult);
+        } catch (error) {
+          console.log(error.message);
+        }
+      } else if (
+        existentLetters.length === 0 &&
+        nonexistentLetters.length > 0
+      ) {
+        try {
+          const result = await fetch(
+            `https://api.datamuse.com/words?sp=${wordToSearch}-${nonexistentLetters
+              .join("")
+              .toLowerCase()}
+                `
+          );
+          const jsonResult = await result.json();
+          setPossibleWords(jsonResult);
+        } catch (error) {
+          console.log(error.message);
+        }
       } else if (
         existentLetters.length > 1 &&
         nonexistentLetters.length === 0
       ) {
         let existentLetterString = formatExistentLetterString(existentLetters);
-        const result = await fetch(
-          `https://api.datamuse.com/words?sp=${wordToSearch}${existentLetterString}
-              `
-        );
-        const jsonResult = await result.json();
-        setPossibleWords(jsonResult);
+        try {
+          const result = await fetch(
+            `https://api.datamuse.com/words?sp=${wordToSearch}${existentLetterString}
+                `
+          );
+          const jsonResult = await result.json();
+          setPossibleWords(jsonResult);
+        } catch (error) {
+          console.log(error.message);
+        }
       } else if (existentLetters.length > 1 && nonexistentLetters.length > 0) {
         let existentLetterString = formatExistentLetterString(existentLetters);
-        const result = await fetch(
-          `https://api.datamuse.com/words?sp=${wordToSearch}${existentLetterString}-${nonexistentLetters
-            .join("")
-            .toLowerCase()}
-              `
-        );
-        const jsonResult = await result.json();
-        setPossibleWords(jsonResult);
+        try {
+          const result = await fetch(
+            `https://api.datamuse.com/words?sp=${wordToSearch}${existentLetterString}-${nonexistentLetters
+              .join("")
+              .toLowerCase()}
+                `
+          );
+          const jsonResult = await result.json();
+          setPossibleWords(jsonResult);
+        } catch (error) {
+          console.log(error.message);
+        }
       }
     }
     setSearched(true);
@@ -196,13 +224,15 @@ function App() {
 
   const selectExcludedLetter = (letter) => {
     nonexistentLetters.push(letter);
-    if (possibleWords.length > 0) {
-      filterNonexistentLetters();
-    }
+    // if (possibleWords.length > 0) {
+    //   filterNonexistentLetters();
+    // }
+    searchWord();
   };
 
   const deselectExcludedLetter = (letter) => {
-    setNonexistentLetters(nonexistentLetters.filter((x) => x !== letter));
+    let index = nonexistentLetters.findIndex((x) => x === letter);
+    nonexistentLetters.splice(index, 1);
     if (possibleWords.length > 0) {
       searchWord();
     }

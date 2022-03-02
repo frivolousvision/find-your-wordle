@@ -21,15 +21,20 @@ const LettersToInclude = (props) => {
         setSelected(true);
       }
     }
-    if (props.nonexistentLetters) {
-      for (let i = 0; i < props.nonexistentLetters.length; i++) {
-        if (
-          props.nonexistentLetters[i].toLowerCase() ===
-          props.letter.toLowerCase()
-        ) {
-          setDisabled(true);
-        }
-      }
+    // if (props.nonexistentLetters) {
+    //   for (let i = 0; i < props.nonexistentLetters.length; i++) {
+    //     if (
+    //       props.nonexistentLetters[i].toLowerCase() ===
+    //       props.letter.toLowerCase()
+    //     ) {
+    //       setDisabled(true);
+    //     }
+    //   }
+    // }
+    if (props.nonexistentLetters.includes(props.letter)) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
     }
   }, [
     props.haveGreen,
