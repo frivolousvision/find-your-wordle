@@ -6,11 +6,11 @@ import "./App.css";
 
 function App() {
   const [searched, setSearched] = useState(false);
-  const [firstLetter, setFirstLetter] = useState("?");
-  const [secondLetter, setSecondLetter] = useState("?");
-  const [thirdLetter, setThirdLetter] = useState("?");
-  const [fourthLetter, setFourthLetter] = useState("?");
-  const [fifthLetter, setFifthLetter] = useState("?");
+  const [firstLetter, setFirstLetter] = useState("");
+  const [secondLetter, setSecondLetter] = useState("");
+  const [thirdLetter, setThirdLetter] = useState("");
+  const [fourthLetter, setFourthLetter] = useState("");
+  const [fifthLetter, setFifthLetter] = useState("");
   const [possibleWords, setPossibleWords] = useState([]);
   const [nonexistentLetters] = useState([]);
   const [existentLetters, setExistentLetters] = useState([]);
@@ -60,7 +60,19 @@ function App() {
   const handleFocus = (e) => {
     if (e.target.value.length > 0 && e.target.nextSibling) {
       e.target.nextSibling.focus();
-      console.log("focus");
+    }
+  };
+  const handleBackspace = (e) => {
+    if (
+      e.keyCode === 8 &&
+      e.target.previousSibling &&
+      !e.target.nextSibling &&
+      e.target.value === ""
+    ) {
+      setFifthLetter("");
+    }
+    if (e.keyCode === 8 && e.target.previousSibling && e.target.value === "") {
+      e.target.previousSibling.focus();
     }
   };
   const searchWord = async () => {
@@ -309,16 +321,16 @@ function App() {
         {!onlyYellows ? (
           <div className='input-field'>
             <input
-              autoFocus
               type='text'
               maxLength={1}
-              placeholder='?'
+              placeholder=''
               value={firstLetter.toUpperCase()}
               onFocus={() => setFirstLetter("")}
               onChange={(e) => {
                 setFirstLetter(e.target.value);
                 handleFocus(e);
               }}
+              onKeyDown={(e) => handleBackspace(e)}
               className={`${
                 firstLetter !== "?" && firstLetter.length > 0
                   ? "input-entered"
@@ -328,13 +340,14 @@ function App() {
             <input
               type='text'
               maxLength={1}
-              placeholder='?'
+              placeholder=''
               value={secondLetter.toUpperCase()}
               onFocus={() => setSecondLetter("")}
               onChange={(e) => {
                 setSecondLetter(e.target.value);
                 handleFocus(e);
               }}
+              onKeyDown={(e) => handleBackspace(e)}
               className={`${
                 secondLetter !== "?" && secondLetter.length > 0
                   ? "input-entered"
@@ -344,13 +357,14 @@ function App() {
             <input
               type='text'
               maxLength={1}
-              placeholder='?'
+              placeholder=''
               value={thirdLetter.toUpperCase()}
               onFocus={() => setThirdLetter("")}
               onChange={(e) => {
                 setThirdLetter(e.target.value);
                 handleFocus(e);
               }}
+              onKeyDown={(e) => handleBackspace(e)}
               className={`${
                 thirdLetter !== "?" && thirdLetter.length > 0
                   ? "input-entered"
@@ -360,13 +374,14 @@ function App() {
             <input
               type='text'
               maxLength={1}
-              placeholder='?'
+              placeholder=''
               value={fourthLetter.toUpperCase()}
               onFocus={() => setFourthLetter("")}
               onChange={(e) => {
                 setFourthLetter(e.target.value);
                 handleFocus(e);
               }}
+              onKeyDown={(e) => handleBackspace(e)}
               className={`${
                 fourthLetter !== "?" && fourthLetter.length > 0
                   ? "input-entered"
@@ -376,13 +391,14 @@ function App() {
             <input
               type='text'
               maxLength={1}
-              placeholder='?'
+              placeholder=''
               value={fifthLetter.toUpperCase()}
               onFocus={() => setFifthLetter("")}
               onChange={(e) => {
                 setFifthLetter(e.target.value);
                 handleFocus(e);
               }}
+              onKeyDown={(e) => handleBackspace(e)}
               className={`${
                 fifthLetter !== "?" && fifthLetter.length > 0
                   ? "input-entered"
