@@ -48,12 +48,12 @@ input {
 }
 input:focus {
   border-radius: 0;
-  outline-color: green;
+  outline-color: #548c4c;
   caret-color: transparent;
 }
 .input-entered {
-  background-color: green;
-  border: 2px solid green;
+  background-color: #548c4c;
+  border: 2px solid #548c4c;
   border-radius: 0;
 }
 .input-blank {

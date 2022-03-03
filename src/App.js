@@ -303,6 +303,7 @@ function App() {
         {!onlyYellows ? (
           <div className='input-field'>
             <input
+              autoFocus
               type='text'
               maxLength={1}
               placeholder='?'
