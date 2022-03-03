@@ -75,6 +75,7 @@ function App() {
       e.target.previousSibling.focus();
     }
   };
+
   const searchWord = async () => {
     if (searched) {
       setHaveGreen(true);
@@ -83,31 +84,26 @@ function App() {
       word.splice(0, 1, firstLetter);
     } else {
       word.splice(0, 1, "?");
-      setFirstLetter("?");
     }
     if (secondLetter.length > 0 && typeof secondLetter === "string") {
       word.splice(1, 1, secondLetter);
     } else {
       word.splice(1, 1, "?");
-      setSecondLetter("?");
     }
     if (thirdLetter.length > 0 && typeof thirdLetter === "string") {
       word.splice(2, 1, thirdLetter);
     } else {
       word.splice(2, 1, "?");
-      setThirdLetter("?");
     }
     if (fourthLetter.length > 0 && typeof fourthLetter === "string") {
       word.splice(3, 1, fourthLetter);
     } else {
       word.splice(3, 1, "?");
-      setFourthLetter("?");
     }
     if (fifthLetter.length > 0 && typeof fifthLetter === "string") {
       word.splice(4, 1, fifthLetter);
     } else {
       word.splice(4, 1, "?");
-      setFifthLetter("?");
     }
     let wordToSearch = word.join("");
     if (existentLetters.length === 0 && nonexistentLetters.length === 0) {
