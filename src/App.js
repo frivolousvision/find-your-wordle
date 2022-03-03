@@ -378,8 +378,8 @@ function App() {
             ></input>
           </div>
         ) : null}
-        <div ref={myRef}></div>
         <button className='search-button'>Search</button>
+        <div ref={myRef}></div>
         {possibleWords.length > 0 && searched ? (
           <p>Refresh page for an entirely new search!</p>
         ) : null}
