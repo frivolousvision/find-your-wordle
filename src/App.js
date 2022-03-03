@@ -204,28 +204,6 @@ function App() {
     return ",*" + newArray.join(`,*`).toLowerCase();
   };
 
-  // const filterNonexistentLetters = () => {
-  //   for (let i = 0; i < nonexistentLetters.length; i++) {
-  //     setPossibleWords(
-  //       possibleWords.filter(
-  //         (word) =>
-  //           !word.word
-  //             .toLowerCase()
-  //             .includes(nonexistentLetters[i].toLowerCase())
-  //       )
-  //     );
-  //   }
-  // };
-
-  // const filterOnSearch = (arr) => {
-  //   for (let i = 0; i < nonexistentLetters.length; i++) {
-  //     return arr.map(
-  //       (word) =>
-  //         !word.word.toLowerCase().includes(nonexistentLetters[i].toLowerCase())
-  //     );
-  //   }
-  // };
-
   const filterExistentLetters = () => {
     for (let i = 0; i < existentLetters.length; i++) {
       setPossibleWords(
@@ -238,9 +216,6 @@ function App() {
 
   const selectExcludedLetter = (letter) => {
     nonexistentLetters.push(letter);
-    // if (possibleWords.length > 0) {
-    //   filterNonexistentLetters();
-    // }
     searchWord();
   };
 
@@ -480,6 +455,17 @@ function App() {
           a new search!
         </h3>
       ) : null}
+      <p className={`footer-note ${searched ? null : "footer-fixed"}`}>
+        created by{" "}
+        <a
+          href='https://github.com/frivolousvision'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='git-hub-link'
+        >
+          FrivolousVision
+        </a>
+      </p>
     </div>
   );
 }
