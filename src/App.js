@@ -57,6 +57,12 @@ function App() {
       handleScroll();
     }, 500);
   };
+  const handleFocus = (e) => {
+    if (e.target.value.length > 0 && e.target.nextSibling) {
+      e.target.nextSibling.focus();
+      console.log("focus");
+    }
+  };
   const searchWord = async () => {
     if (searched) {
       setHaveGreen(true);
@@ -309,7 +315,10 @@ function App() {
               placeholder='?'
               value={firstLetter.toUpperCase()}
               onFocus={() => setFirstLetter("")}
-              onChange={(e) => setFirstLetter(e.target.value)}
+              onChange={(e) => {
+                setFirstLetter(e.target.value);
+                handleFocus(e);
+              }}
               className={`${
                 firstLetter !== "?" && firstLetter.length > 0
                   ? "input-entered"
@@ -322,7 +331,10 @@ function App() {
               placeholder='?'
               value={secondLetter.toUpperCase()}
               onFocus={() => setSecondLetter("")}
-              onChange={(e) => setSecondLetter(e.target.value)}
+              onChange={(e) => {
+                setSecondLetter(e.target.value);
+                handleFocus(e);
+              }}
               className={`${
                 secondLetter !== "?" && secondLetter.length > 0
                   ? "input-entered"
@@ -335,7 +347,10 @@ function App() {
               placeholder='?'
               value={thirdLetter.toUpperCase()}
               onFocus={() => setThirdLetter("")}
-              onChange={(e) => setThirdLetter(e.target.value)}
+              onChange={(e) => {
+                setThirdLetter(e.target.value);
+                handleFocus(e);
+              }}
               className={`${
                 thirdLetter !== "?" && thirdLetter.length > 0
                   ? "input-entered"
@@ -348,7 +363,10 @@ function App() {
               placeholder='?'
               value={fourthLetter.toUpperCase()}
               onFocus={() => setFourthLetter("")}
-              onChange={(e) => setFourthLetter(e.target.value)}
+              onChange={(e) => {
+                setFourthLetter(e.target.value);
+                handleFocus(e);
+              }}
               className={`${
                 fourthLetter !== "?" && fourthLetter.length > 0
                   ? "input-entered"
@@ -361,7 +379,10 @@ function App() {
               placeholder='?'
               value={fifthLetter.toUpperCase()}
               onFocus={() => setFifthLetter("")}
-              onChange={(e) => setFifthLetter(e.target.value)}
+              onChange={(e) => {
+                setFifthLetter(e.target.value);
+                handleFocus(e);
+              }}
               className={`${
                 fifthLetter !== "?" && fifthLetter.length > 0
                   ? "input-entered"
