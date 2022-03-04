@@ -273,7 +273,7 @@ function App() {
       </h1>
       {onlyYellows && possibleWords.length === 0 ? (
         <div className='only-yellows-container'>
-          <h3>Select your yellow letters:</h3>
+          <p>Select your yellow letters:</p>
           <div className='existent-letter-list'>
             {allLetters.map((letter, index) => (
               <OnlyYellowsLettersToInclude
