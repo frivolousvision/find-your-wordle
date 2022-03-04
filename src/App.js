@@ -280,6 +280,10 @@ function App() {
           itemProp='description'
           content='Having trouble with your Wordle? Use Find your Wordle to help you solve and find your Wordle!'
         />
+        <meta
+          itemProp='image'
+          content='https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Wordle_196_example.svg/220px-Wordle_196_example.svg.png'
+        />
       </Helmet>
       <h1 className={`header ${searched ? "searched" : "not-searched"}`}>
         Find Your Wordle
