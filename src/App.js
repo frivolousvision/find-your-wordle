@@ -274,12 +274,12 @@ function App() {
         <meta
           name='description'
           content='Having trouble with your Wordle? Use Find your Wordle to help you solve and find your Wordle!'
-        ></meta>
-        <meta itemProp='name' content='Find your Wordle'></meta>
+        />
+        <meta itemProp='name' content='Find your Wordle' />
         <meta
           itemProp='description'
           content='Having trouble with your Wordle? Use Find your Wordle to help you solve and find your Wordle!'
-        ></meta>
+        />
       </Helmet>
       <h1 className={`header ${searched ? "searched" : "not-searched"}`}>
         Find Your Wordle
