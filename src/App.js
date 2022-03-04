@@ -270,18 +270,42 @@ function App() {
   return (
     <div className='App'>
       <Helmet>
-        <title>Find your Wordle</title>
+        <title>Find your Worldle</title>
         <meta
           name='description'
           content='Having trouble with your Wordle? Use Find your Wordle to help you solve and find your Wordle!'
         />
-        <meta itemProp='name' content='Find your Wordle' />
+
+        <meta itemprop='name' content='Find your Worldle' />
         <meta
-          itemProp='description'
+          itemprop='description'
           content='Having trouble with your Wordle? Use Find your Wordle to help you solve and find your Wordle!'
         />
         <meta
-          itemProp='image'
+          itemprop='image'
+          content='https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Wordle_196_example.svg/220px-Wordle_196_example.svg.png'
+        />
+
+        <meta property='og:url' content='https://www.findyourwordle.com' />
+        <meta property='og:type' content='website' />
+        <meta property='og:title' content='Find your Worldle' />
+        <meta
+          property='og:description'
+          content='Having trouble with your Wordle? Use Find your Wordle to help you solve and find your Wordle!'
+        />
+        <meta
+          property='og:image'
+          content='https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Wordle_196_example.svg/220px-Wordle_196_example.svg.png'
+        />
+
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:title' content='Find your Worldle' />
+        <meta
+          name='twitter:description'
+          content='Having trouble with your Wordle? Use Find your Wordle to help you solve and find your Wordle!'
+        />
+        <meta
+          name='twitter:image'
           content='https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Wordle_196_example.svg/220px-Wordle_196_example.svg.png'
         />
       </Helmet>
