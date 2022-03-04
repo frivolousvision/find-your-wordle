@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import Helmet from "react-helmet";
 import LettersToExclude from "./Components/Letter/LettersToExclude";
 import LettersToInclude from "./Components/Letter/LettersToInclude";
 import OnlyYellowsLettersToInclude from "./Components/Letter/OnlyYellowsLettersToInclude";
@@ -268,6 +269,18 @@ function App() {
 
   return (
     <div className='App'>
+      <Helmet>
+        <title>Find your Wordle</title>
+        <meta
+          name='description'
+          content='Having trouble with your Wordle? Use Find your Wordle to help you solve and find your Wordle!'
+        ></meta>
+        <meta itemProp='name' content='Find your Wordle'></meta>
+        <meta
+          itemProp='description'
+          content='Having trouble with your Wordle? Use Find your Wordle to help you solve and find your Wordle!'
+        ></meta>
+      </Helmet>
       <h1 className={`header ${searched ? "searched" : "not-searched"}`}>
         Find Your Wordle
       </h1>
