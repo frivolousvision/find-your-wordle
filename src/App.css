@@ -64,7 +64,7 @@ input:focus {
   margin-top: 1rem;
 }
 button {
-  width: 16rem;
+  width: 19rem;
   height: 4rem;
   background-color: gray;
   border: none;
@@ -142,6 +142,10 @@ button {
     margin: 0.2rem;
     font-size: 1.8rem;
     text-align: center;
+  }
+  .search-button {
+    margin-top: 1.6rem;
+    margin-bottom: 2rem;
   }
   .nonexistent-letter-list {
     width: 95%;
