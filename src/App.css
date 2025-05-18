@@ -141,6 +141,7 @@ button {
     margin-bottom: 0px;
   }
   form {
+    max-width: 95vw;
     width: 95%;
     max-width: 350px;
     margin: 0 auto;
@@ -149,7 +150,7 @@ button {
     margin: 0 auto;
   }
   input {
-    width: calc(20% - 12px);
+    width: calc(20% - 10px);
     aspect-ratio: 1;
     height: 100%;
     margin: 0;
